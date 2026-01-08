@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 const Products = () => {
@@ -7,14 +8,27 @@ const Products = () => {
     //load products using axios and tanstack query
     const axiosSecure = useAxiosSecure();
     const fetchItems = async () => {
-        const response = await axiosSecure('items');
-        console.log(response.data);
+        const response = await axiosSecure('/items');
+        //console.log(response.data);
         return response.data;
     }
     const { data: items = [], refetch } = useQuery({
         queryKey: ['sneakerItems'],
         queryFn: fetchItems
     })
+
+    //reserve item
+    const handleReserve= (itemcode)=>{
+        axiosSecure.post(`/reserve/${itemcode}`)
+        .then(res=>{
+            if(res.statusText=='OK'){
+                Swal.fire(
+                    'Item reserved for 60 seconds!'
+                ) 
+                refetch(); 
+            }
+        })
+    }
 
     return (
         <div>
@@ -47,6 +61,9 @@ const Products = () => {
                                 <td>{item.item_name}</td>
                                 <td>{item.price}</td>
                                 <td>{item.stock}</td>
+                                <td>
+                                    <button onClick={()=> handleReserve(item.item_code)} className="btn btn-soft btn-primary btn-xm">Reserve</button>
+                                </td>
                             </tr>)
                         }
                     </tbody>
