@@ -67,8 +67,8 @@ const Products = () => {
                     <tbody>
                         {
                             items.map(item => <tr key={item.id}>
-                                <td> <div class="avatar">
-                                    <div class="mask mask-squircle h-12 w-12">
+                                <td> <div className="avatar">
+                                    <div className="mask mask-squircle h-12 w-12">
                                         <img
                                             src={item.image}
                                             alt="Avatar Tailwind CSS Component" />
