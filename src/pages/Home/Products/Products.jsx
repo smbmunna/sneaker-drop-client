@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 
 const Products = () => {
+    //managing purchase state
+    const [purchaseState, setPurchaseState] = useState('');
 
     //load products using axios and tanstack query
     const axiosSecure = useAxiosSecure();
@@ -18,16 +21,22 @@ const Products = () => {
     })
 
     //reserve item
-    const handleReserve= (itemcode)=>{
+    const handleReserve = (itemcode) => {
         axiosSecure.post(`/reserve/${itemcode}`)
-        .then(res=>{
-            if(res.statusText=='OK'){
-                Swal.fire(
-                    'Item reserved for 60 seconds!'
-                ) 
-                refetch(); 
-            }
-        })
+            .then(res => {
+                if (res.statusText == 'OK') {
+                    Swal.fire(
+                        'Item reserved for 60 seconds!'
+                    )
+                    refetch();
+                    setPurchaseState('reserved'); 
+                }
+            })
+    }
+
+    //Purchase item
+    const handlePurchase=()=>{
+        console.log('Purchase clicked'); 
     }
 
     return (
@@ -61,8 +70,13 @@ const Products = () => {
                                 <td>{item.item_name}</td>
                                 <td>{item.price}</td>
                                 <td>{item.stock}</td>
-                                <td>
-                                    <button onClick={()=> handleReserve(item.item_code)} className="btn btn-soft btn-primary btn-xm">Reserve</button>
+                                <td>{
+                                    item.is_reserved ?
+                                        (<button onClick={() => handlePurchase(item.item_code)} className="btn btn-soft btn-accent btn-xm">Purchase</button>)
+                                        :
+                                        <button onClick={() => handleReserve(item.item_code)} className="btn btn-soft btn-primary btn-xm">Reserve</button>
+
+                                }
                                 </td>
                             </tr>)
                         }
