@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Products = () => {
     //managing purchase state
-    const [purchaseState, setPurchaseState] = useState('');
+    //const [purchaseState, setPurchaseState] = useState('');
 
     //load products using axios and tanstack query
     const axiosSecure = useAxiosSecure();
@@ -29,14 +29,23 @@ const Products = () => {
                         'Item reserved for 60 seconds!'
                     )
                     refetch();
-                    setPurchaseState('reserved'); 
+                    //setPurchaseState('reserved');
                 }
             })
     }
 
     //Purchase item
-    const handlePurchase=()=>{
-        console.log('Purchase clicked'); 
+    const handlePurchase = (itemcode) => {
+        axiosSecure.post(`/purchase/${itemcode}`)
+            .then(res => {
+                if (res.statusText == 'OK') {
+                    Swal.fire(
+                        'Item purchased successfully!'
+                    )
+                    refetch();
+                    //setPurchaseState('');
+                }
+            })
     }
 
     return (
