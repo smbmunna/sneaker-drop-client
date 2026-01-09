@@ -1,4 +1,4 @@
-# 🧢 Sneaker Merch Drop System
+# Sneaker Merch Drop System
 
 This project is a simplified **Merch Drop System** where users can reserve limited-stock items for a short time window before completing a purchase.
 
@@ -9,7 +9,7 @@ This project is a simplified **Merch Drop System** where users can reserve limit
 **[ Server Github Link](https://github.com/smbmunna/bookshelf-server)** ||
 **[ Server Live Link](https://github.com/smbmunna/sneaker-drop-server)**
 
-## 🚀 Tech Stack
+## Tech Stack
 
 ### Frontend
 - React
@@ -26,10 +26,10 @@ This project is a simplified **Merch Drop System** where users can reserve limit
 
 ---
 
-## 📦 How to Run the App
+## How to Run the App
 This project can fully run on the production environment as both the frontend and the backend is fully deployed on production environment. 
 
-## 📦 How to Run the App Locally
+## How to Run the App Locally
 
 
 ### 1 Clone the Repository (Frontend)
@@ -107,7 +107,7 @@ npm run dev
 ```
 
 
-### 🏗️ Architecture Choice
+### Architecture Choice
 ### How is the 60-second expiration handled? 
 
 Instead of WebSockets, this project uses a database-driven vercel CRON job technique.
