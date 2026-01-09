@@ -24,8 +24,8 @@ const Products = () => {
     })
 
     //reserve item
-    const handleReserve = (itemcode) => {
-        axiosSecure.post(`/reserve/${itemcode}`)
+    const handleReserve = async (itemcode) => {
+        await axiosSecure.post(`/reserve/${itemcode}`)
             .then(res => {
                 refetch();
                 if (res.statusText == 'OK') {
@@ -42,31 +42,26 @@ const Products = () => {
     }
 
     //Purchase item
-    const handlePurchase = (itemcode) => {
-        axiosSecure.post(`/purchase/${itemcode}`)
-            .then(res => {
-                refetch();
-                if (res.statusText == 'OK') {
-                    //inserts user and add purchase count to user table
-                    
-                    const userData = {
-                        name: user?.displayName,
-                        email:user?.email
-                    };
-                    //console.log(userData);
-                    axiosSecure.post('/userPurchase', userData); 
-                    Swal.fire(
-                        'Item purchased successfully!'
-                    )
-                    //setPurchaseState('');
-                }
-            })
-            .catch(err => {
-                Swal.fire('Error', err.response?.data?.error || 'Failed', 'error');
-                console.error(err);
-            });
-    }
+    const handlePurchase = async (itemcode) => {
+        try {
+            const res = await axiosSecure.post(`/purchase/${itemcode}`);
 
+            if (res.status === 200) {
+                refetch();
+                const userData = {
+                    name: user?.displayName,
+                    email: user?.email
+                };
+                await axiosSecure.post('/userPurchase', userData);
+                //console.log(userPurchaseRes.data); 
+
+                Swal.fire('Success!', 'Item purchased successfully!', 'success');
+            }
+        } catch (err) {
+            console.error('Purchase error:', err);
+            Swal.fire('Error', err.response?.data?.error || 'Failed to purchase', 'error');
+        }
+    }
     return (
         <div>
             <h1>Available Products:{items.length}</h1>
