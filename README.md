@@ -6,7 +6,7 @@ This project is a simplified **Merch Drop System** where users can reserve limit
 **[ Client Github Link](https://github.com/smbmunna/sneaker-drop-client)** ||
 **[ Client Live Link](https://sneaker-drop-client.vercel.app/)**
 
-**[ Server Github Link](https://github.com/smbmunna/bookshelf-server)** ||
+**[ Server Github Link](https://sneaker-drop-server.vercel.app/)** ||
 **[ Server Live Link](https://github.com/smbmunna/sneaker-drop-server)**
 
 ## Tech Stack
