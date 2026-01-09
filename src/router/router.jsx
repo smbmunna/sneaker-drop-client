@@ -5,6 +5,7 @@ import Products from "../pages/Home/Products/Products";
 import Login from "../pages/Authentication/Login/Login";
 import MerchDrop from "../pages/Home/MerchDrop/MerchDrop";
 import AllProducts from "../pages/Home/AllProducts/AllProducts";
+import PrivateRoute from "../Routes/PrivateRoute/PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -14,11 +15,13 @@ export const router = createBrowserRouter([
     children: [
         {
             index: true,
-            Component: Home
+            //Component: Home
+            Component: AllProducts
         },
         {
             path: 'products', 
-            Component: Products
+            //Component: Products
+            element: <PrivateRoute><Products/></PrivateRoute>
         },
         {
           path: 'login', 
@@ -26,7 +29,8 @@ export const router = createBrowserRouter([
         },
         {
           path: 'drop', 
-          Component: MerchDrop
+          //Component: MerchDrop
+          element: <PrivateRoute><MerchDrop/></PrivateRoute>
         },
         {
           path: 'allProducts', 

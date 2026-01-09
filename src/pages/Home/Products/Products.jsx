@@ -2,12 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import useAuth from "../../../hooks/useAuth";
 
 
 const Products = () => {
     //managing purchase state
     //const [purchaseState, setPurchaseState] = useState('');
-
+    const { user } = useAuth();
     //load products using axios and tanstack query
     const axiosSecure = useAxiosSecure();
     const fetchItems = async () => {
@@ -19,7 +20,7 @@ const Products = () => {
         queryKey: ['sneakerItems'],
         queryFn: fetchItems,
         refetchInterval: 3000, // refresh every 5 seconds
-        refetchIntervalInBackground: true 
+        refetchIntervalInBackground: true
     })
 
     //reserve item
@@ -46,6 +47,14 @@ const Products = () => {
             .then(res => {
                 refetch();
                 if (res.statusText == 'OK') {
+                    //inserts user and add purchase count to user table
+                    
+                    const userData = {
+                        name: user?.displayName,
+                        email:user?.email
+                    };
+                    //console.log(userData);
+                    axiosSecure.post('/userPurchase', userData); 
                     Swal.fire(
                         'Item purchased successfully!'
                     )
