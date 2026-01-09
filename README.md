@@ -105,3 +105,37 @@ http://localhost:5000
 ```bash
 npm run dev
 ```
+
+
+### 🏗️ Architecture Choice
+### How is the 60-second expiration handled? 
+
+Instead of WebSockets, this project uses a database-driven vercel CRON job technique.
+
+User clicks Reserve
+
+Backend:
+* Decrements available stock
+
+* Creates a reservation with expires_at = NOW() + 60 seconds
+
+* Stock is temporarily held for the user
+
+### Expiration Handling
+
+Each reservation includes an expires_at timestamp
+
+A cleanup process using vercel cron job:
+Restores stock for expired reservations
+Deletes expired, incomplete reservations
+
+### Concurrency Handling
+* Concurrency is handled at the database level using atomic updates and transactions.
+* All reserve logic runs inside a transaction:
+``` bash
+BEGIN;
+-- stock update
+-- reservation insert
+COMMIT;
+
+````
