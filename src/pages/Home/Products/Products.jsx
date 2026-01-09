@@ -24,28 +24,36 @@ const Products = () => {
     const handleReserve = (itemcode) => {
         axiosSecure.post(`/reserve/${itemcode}`)
             .then(res => {
+                refetch();
                 if (res.statusText == 'OK') {
                     Swal.fire(
                         'Item reserved for 60 seconds!'
                     )
-                    refetch();
                     //setPurchaseState('reserved');
                 }
             })
+            .catch(err => {
+                Swal.fire('Error', err.response?.data?.error || 'Failed', 'error');
+                console.error(err);
+            });
     }
 
     //Purchase item
     const handlePurchase = (itemcode) => {
         axiosSecure.post(`/purchase/${itemcode}`)
             .then(res => {
+                refetch();
                 if (res.statusText == 'OK') {
                     Swal.fire(
                         'Item purchased successfully!'
                     )
-                    refetch();
                     //setPurchaseState('');
                 }
             })
+            .catch(err => {
+                Swal.fire('Error', err.response?.data?.error || 'Failed', 'error');
+                console.error(err);
+            });
     }
 
     return (
