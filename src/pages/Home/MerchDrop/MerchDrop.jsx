@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form"
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useNavigate } from "react-router";
 
 
 
 const MerchDrop = () => {
-
-    const axiosSecure= useAxiosSecure(); 
+    const navigate= useNavigate(); 
+    
+    const axiosSecure = useAxiosSecure();
 
     const {
         register,
@@ -22,7 +24,8 @@ const MerchDrop = () => {
                 starts_at: data.starts_at
             };
             const res = await axiosSecure.post('/drops', formData);
-            console.log('Response:', res.data);
+            //console.log('Response:', res.data);
+            navigate('/products');
             reset();
 
         } catch (err) {

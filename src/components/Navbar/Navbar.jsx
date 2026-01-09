@@ -8,12 +8,13 @@ const Navbar = () => {
     const handleLogout = () => {
         logout();
     }
-    const list = <> <li><Link to='/'>Home</Link></li>
+    const list = <>
+        {/* <li><Link to='/'>Home</Link></li> */}
         <li><Link to='/allProducts'>All Products</Link></li>
         <li><Link to='/drop'>Merch Drop</Link></li>
         <li><Link to='/products'>Available Products</Link></li>
         <li><Link to='/login'>Login</Link></li>
-        </>
+    </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start">

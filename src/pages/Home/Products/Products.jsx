@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 
 
-const Products = () => {
+const Products = () => { 
     //managing purchase state
     //const [purchaseState, setPurchaseState] = useState('');
     const { user } = useAuth();
@@ -56,6 +55,7 @@ const Products = () => {
                 //console.log(userPurchaseRes.data); 
 
                 Swal.fire('Success!', 'Item purchased successfully!', 'success');
+               
             }
         } catch (err) {
             console.error('Purchase error:', err);
