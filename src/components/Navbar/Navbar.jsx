@@ -1,9 +1,16 @@
 import { Link } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
 
 const Navbar = () => {
+    const { logout, user } = useAuth();
+    console.log(user);
+    const handleLogout = () => {
+        logout();
+    }
     const list = <> <li><Link to='/'>Home</Link></li>
-        <li><Link to='/products'>Products</Link></li></>;
+        <li><Link to='/products'>Products</Link></li>
+        <li><Link to='/login'>Login</Link></li></>
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start">
@@ -25,7 +32,13 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {
+                    user && <>
+                        <h2>Welcome {user.displayName}</h2>
+                        <button onClick={handleLogout} className="btn btn-soft btn-error"> Logout</button>
+                    </>
+
+                }
             </div>
         </div>
     )
