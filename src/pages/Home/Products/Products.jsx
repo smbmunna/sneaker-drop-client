@@ -17,7 +17,9 @@ const Products = () => {
     }
     const { data: items = [], refetch } = useQuery({
         queryKey: ['sneakerItems'],
-        queryFn: fetchItems
+        queryFn: fetchItems,
+        refetchInterval: 3000, // refresh every 5 seconds
+        refetchIntervalInBackground: true 
     })
 
     //reserve item
@@ -58,14 +60,13 @@ const Products = () => {
 
     return (
         <div>
-            <h1>Total Products:{items.length}</h1>
+            <h1>Available Products:{items.length}</h1>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
                     <thead>
                         <tr>
                             <th>Item Image</th>
-                            <th>Item Code</th>
                             <th>Item Code</th>
                             <th>Item Name</th>
                             <th>Price</th>
@@ -82,7 +83,6 @@ const Products = () => {
                                             alt="Avatar Tailwind CSS Component" />
                                     </div>
                                 </div></td>
-                                <td>{item.item_code}</td>
                                 <td>{item.item_code}</td>
                                 <td>{item.item_name}</td>
                                 <td>{item.price}</td>
